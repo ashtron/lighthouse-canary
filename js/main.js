@@ -96,7 +96,11 @@ window.onload = () => {
         if (checkPassword(correctPasswordHash)) {
             addDate("on")
         } else {
-            console.log("Incorrect password")
+            passwordInput.classList.add("shake")
+
+            setTimeout(function() {
+                passwordInput.classList.remove("shake")
+            }, 1000)
         }
     })
 
@@ -106,7 +110,7 @@ window.onload = () => {
         if (checkPassword(correctPasswordHash)) {
             addDate("off")
         } else {
-            console.log("Incorrect password")
+            passwordInput.classList.add("shake")
         }
     })
 }
