@@ -91,7 +91,7 @@ window.onload = () => {
     }
 
     onButton.addEventListener("click", event => {
-        const correctPasswordHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+        const correctPasswordHash = "9c92ff7dc64ffbb34bc2db4996c355c7eba551cd4f503e91430b905c81bbbbde"
 
         if (checkPassword(correctPasswordHash)) {
             addDate("on")
@@ -101,7 +101,7 @@ window.onload = () => {
     })
 
     offButton.addEventListener("click", event => {
-        const correctPasswordHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+        const correctPasswordHash = "acba1829668bd8d6c9b68d9a091b612e028a776ddee8a2daf194195a7b98d2af"
 
         if (checkPassword(correctPasswordHash)) {
             addDate("off")
@@ -110,5 +110,3 @@ window.onload = () => {
         }
     })
 }
-
-// SHA256 = new Hashes.SHA256().hex("password")
