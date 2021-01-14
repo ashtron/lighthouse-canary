@@ -5,6 +5,8 @@ window.onload = () => {
     const dateList = document.getElementById("history")
     const onButton = document.getElementById("on")
     const offButton = document.getElementById("off")
+    const passwordInput = document.getElementById("password-input")
+    const lighthouseImage = document.getElementById("lighthouse-image")
 
     const dates = []
 
@@ -28,6 +30,10 @@ window.onload = () => {
     }
 
     function populateDateList(dates) {
+        if (dates.length === 0) return
+
+        const lastDate = dates[dates.length - 1]
+
         dateList.innerHTML = ""
 
         dates.forEach(date => {
@@ -35,7 +41,19 @@ window.onload = () => {
             dateList.append(newDate)
         })
 
-        // const lastDate = dates[dates.length - 1].fields.item
+        if (lastDate.fields.status === "on") {
+            lighthouseImage.src = "./images/lighthouse-animation.gif"
+
+            onButton.classList.add("hidden")
+            offButton.classList.remove("hidden")
+        }
+
+        if (lastDate.fields.status === "off") {
+            lighthouseImage.src = "./images/lighthouse-still.gif"
+
+            offButton.classList.add("hidden")
+            onButton.classList.remove("hidden")
+        }
     }
 
     function createDateListElement(date) {
@@ -56,7 +74,8 @@ window.onload = () => {
         axios.post(airtableApiUrl + `?api_key=${airtableApiKey}`, {
                 "fields": {
                     "item": newDateText,
-                    "date": newDate.toISOString()
+                    "date": newDate.toISOString(),
+                    "status": action
                 }
             }).then(response => {
                 getDates()
@@ -65,11 +84,31 @@ window.onload = () => {
             });
     }
 
+    function checkPassword(correctPasswordHash) {
+        const enteredPassword = passwordInput.value
+        const enteredPasswordHash = new Hashes.SHA256().hex(enteredPassword)
+        return enteredPasswordHash === correctPasswordHash
+    }
+
     onButton.addEventListener("click", event => {
-        addDate("on")
+        const correctPasswordHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+
+        if (checkPassword(correctPasswordHash)) {
+            addDate("on")
+        } else {
+            console.log("Incorrect password")
+        }
     })
 
     offButton.addEventListener("click", event => {
-        addDate("off")
+        const correctPasswordHash = "5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8"
+
+        if (checkPassword(correctPasswordHash)) {
+            addDate("off")
+        } else {
+            console.log("Incorrect password")
+        }
     })
 }
+
+// SHA256 = new Hashes.SHA256().hex("password")
