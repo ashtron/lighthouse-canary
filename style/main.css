@@ -1,0 +1,53 @@
+body {
+    background-color: rgb(38, 9, 39);
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#history {
+    text-align: center;
+    width: 480px;
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 20px;
+    color: rgb(247, 222, 201);
+}
+
+#history > li {
+    margin-bottom: 5px;
+}
+
+#buttons {
+    margin-bottom: 25px;
+}
+
+#lighthouse-image {
+    margin-bottom: 25px;
+}
+
+button {
+    background-color: rgb(221, 60, 50);
+    border: none;
+    color: rgb(247, 222, 201);
+    padding: 15px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 10%;
+  }
+
+  input {
+      margin-bottom: 18px;
+      opacity: 0.5;
+      border-radius: 10px;
+  }
