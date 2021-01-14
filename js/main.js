@@ -8,10 +8,17 @@ window.onload = () => {
 
     const dates = []
 
-    getDates()
+    init()
+
+    function init() {
+        getDates()
+    }
 
     function getDates() {
-        axios.get(airtableApiUrl + `?api_key=${airtableApiKey}`)
+        // Parameters for returning sorted dates.
+        const queryString = "sort%5B0%5D%5Bfield%5D=date&sort%5B0%5D%5Bdirection%5D=asc"
+
+        axios.get(airtableApiUrl + `?api_key=${airtableApiKey}&${queryString}`)
             .then(response => {
                 populateDateList(response.data.records)
             })
@@ -27,6 +34,8 @@ window.onload = () => {
             const newDate = createDateListElement(date.fields.item)
             dateList.append(newDate)
         })
+
+        // const lastDate = dates[dates.length - 1].fields.item
     }
 
     function createDateListElement(date) {
@@ -46,7 +55,8 @@ window.onload = () => {
 
         axios.post(airtableApiUrl + `?api_key=${airtableApiKey}`, {
                 "fields": {
-                    "item": newDateText
+                    "item": newDateText,
+                    "date": newDate.toISOString()
                 }
             }).then(response => {
                 getDates()
@@ -57,13 +67,9 @@ window.onload = () => {
 
     onButton.addEventListener("click", event => {
         addDate("on")
-        // getDates()
     })
 
     offButton.addEventListener("click", event => {
         addDate("off")
     })
 }
-
-// const date = new Date()
-// `Turned on at ${date.getHours()}:${date.getMinutes()} on ${date.toDateString()}`
